@@ -1,7 +1,6 @@
 package pl.camp.it.book.store.controllers;
 
 import jakarta.annotation.Resource;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -32,7 +31,7 @@ public class AuthenticatorController {
 
     @RequestMapping(path = "/login", method = RequestMethod.GET)
     public String login(Model model) {
-        model.addAttribute("logged", this.sessionObject.isLogged());
+        model.addAttribute("sessionObject", this.sessionObject);
         return "/login";
     }
 
@@ -41,16 +40,18 @@ public class AuthenticatorController {
         try {
             UserValidator.validateLogin(login);
             UserValidator.validatePassword(password);
-    
-            if(!autenthicationService.authenticate(login, password)){
-                return "redirect:/login";
-            }
+
         } catch (UserValidationException e) {
             e.printStackTrace();
             return "redirect:/login";
         }
-        return "redirect:/main";
-    }
+        this.autenthicationService.authenticate(login, password);
+        if (!this.sessionObject.isLogged()) {
+            return "redirect:/login";
+        }
+            return "redirect:/main";
+        }
+
 
     @RequestMapping(path = "/logout", method = RequestMethod.GET)
     public String logout() {
@@ -61,7 +62,7 @@ public class AuthenticatorController {
 
     @RequestMapping(path = "/register", method = RequestMethod.GET)
     public String register(Model model) {
-        model.addAttribute("logged", this.sessionObject.isLogged());
+        model.addAttribute("sessionObject", this.sessionObject);
         model.addAttribute("user", new User());
         return "register";
     }
@@ -71,8 +72,13 @@ public class AuthenticatorController {
         try {
             UserValidator.validateRegisterUser(user, password2);
             this.autenthicationService.registerUser(user);
-        } catch (UserValidationException | UserLoginExistException e) {
+        } catch (UserValidationException  e) {
             e.printStackTrace();
+            this.sessionObject.setInfo(e.getInfo());
+            return "redirect:/register";
+        } catch (UserLoginExistException e) {
+            e.printStackTrace();
+           this.sessionObject.setInfo("login o takiej nazwie już istnieje");
             return "redirect:/register";
         }
         return "redirect:/login";

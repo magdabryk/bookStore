@@ -29,7 +29,7 @@ public class CommonController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public  String main(Model model){
         model.addAttribute("books", this.bookService.getBooks());
-        model.addAttribute("logged", this.sessionObject.isLogged());
+        model.addAttribute("sessionObject", this.sessionObject);
         return "main";
     }
 
@@ -41,7 +41,7 @@ public class CommonController {
 
     @RequestMapping(value = "/contact", method = RequestMethod.GET)
     public String contact(Model model) {
-        model.addAttribute("logged", this.sessionObject.isLogged());
+        model.addAttribute("sessionObject", this.sessionObject);
         return "contact";
     }
 }
