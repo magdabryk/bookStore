@@ -16,7 +16,6 @@ public class CommonController {
 
     @Autowired
     IBookService bookService;
-
     @Resource
     SessionObject sessionObject;
 

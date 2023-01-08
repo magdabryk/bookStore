@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 import pl.camp.it.book.store.model.OrderPosition;
 import pl.camp.it.book.store.model.User;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;

@@ -3,14 +3,13 @@ package pl.camp.it.book.store.services.impl;
 
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 import pl.camp.it.book.store.database.IBookDAO;
+import pl.camp.it.book.store.exception.NotEnoughBookException;
 import pl.camp.it.book.store.model.Book;
 import pl.camp.it.book.store.model.OrderPosition;
 import pl.camp.it.book.store.services.ICartService;
 import pl.camp.it.book.store.session.SessionObject;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -30,15 +29,14 @@ public class CartServiceImpl implements ICartService {
         if (bookBox.isEmpty()) {
             return;
         }
-        if (cart.get(bookId) == null) {
-            cart.put(bookId , new OrderPosition(bookBox.get(), 1));
-
+        if (cart.get(bookId) == null && bookBox.get().getQuantity() >0) {
+                cart.put(bookId, new OrderPosition(bookBox.get(), 1));
+        } else if (bookBox.get().getQuantity() > cart.get(bookId).getQuantity()) {
+                cart.get(bookId).increamentQuantity();
         } else {
-            cart.get(bookId).increamentQuantity();
+            throw  new NotEnoughBookException();
         }
     }
-
-
 
     @Override
     public void clearCart() {

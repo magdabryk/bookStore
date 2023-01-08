@@ -6,7 +6,6 @@ import pl.camp.it.book.store.database.IBookDAO;
 import pl.camp.it.book.store.database.sequence.IBookIdSequence;
 import pl.camp.it.book.store.database.sequence.IIdSequence;
 import pl.camp.it.book.store.model.Book;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -15,7 +14,7 @@ import java.util.Optional;
 public class BookDB implements IBookDAO {
 
 
-    IIdSequence bookIdSequence;
+    private final IIdSequence bookIdSequence;
     private final List<Book> books = new ArrayList<>();
 
 

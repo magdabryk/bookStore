@@ -6,11 +6,8 @@ import org.springframework.stereotype.Repository;
 import pl.camp.it.book.store.database.IUserDAO;
 import pl.camp.it.book.store.database.sequence.IIdSequence;
 import pl.camp.it.book.store.database.sequence.IUserIdSequence;
-import pl.camp.it.book.store.database.sequence.UserIdSequence;
 import pl.camp.it.book.store.exception.UserLoginExistException;
 import pl.camp.it.book.store.model.User;
-
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -18,7 +15,7 @@ import java.util.Optional;
 @Repository
 public class UserDB implements IUserDAO {
 
-    IIdSequence userIdSequence;
+    private final IIdSequence userIdSequence;
 
     private final List<User> users = new ArrayList<>();
     public UserDB(@Autowired IUserIdSequence userIdSequence) {

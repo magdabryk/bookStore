@@ -21,29 +21,35 @@
     display: inline-block;
 }
 
-.title {
-    width: 37%;
+.id, .date, .state, .total {
+    width: 24%;
 }
 
-.author {
-    width:28%;
+.positions {
+    display: none !important;
+    border-top: 1px solid white;
+    margin: 10px;
 }
 
-.one-piece-price,  .sum-price {
-    width: 10%;
+.row:hover .positions, .row.hover .positions {
+    display: block !important;
 }
 
-.quantity  {
-    width: 8%;
+.position-row  {
+    display: block !important;
+    margin: 5px 0;
 }
 
-.bin {
-    width: 4%;
-    height: 35px;
-    display: inline-block;
+.position-row .title {
+    width: 70%;
 }
 
-.bin img {
-    height: 100%;
-    width: 100%;
+.position-row .quantity {
+    width:10%;
 }
+
+.position-row .sum-price {
+    width: 15%;
+}
+
+

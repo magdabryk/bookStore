@@ -16,8 +16,7 @@ public class UserValidator {
             throw new UserValidationException("Nieprawiłowy login");
         }
     }
-
-    public static void validatePassword(String password) {
+   public static void validatePassword(String password) {
         String regex = "^[a-zA-Z0-9]{5,}$";
         if (!password.matches(regex)) {
             throw new UserValidationException("Nieprawidłowe hasło");

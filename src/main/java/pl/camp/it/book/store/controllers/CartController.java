@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import pl.camp.it.book.store.exception.NotEnoughBookException;
 import pl.camp.it.book.store.services.ICartService;
 import pl.camp.it.book.store.session.SessionObject;
 
@@ -20,7 +21,12 @@ public class CartController {
 
     @RequestMapping(path="/cart/add/{bookId}", method = RequestMethod.GET)
     public String addBookToCart(@PathVariable int bookId){
-        this.cartService.addBookToCart(bookId);
+        try {
+            this.cartService.addBookToCart(bookId);
+        } catch (NotEnoughBookException e) {
+            this.sessionObject.setInfo("niepoprawna ilość produków");
+            return "redirect:/";
+        }
         return "redirect:/";
     }
 
@@ -37,4 +43,5 @@ public class CartController {
         this.cartService.removeFromCart(bookId);
         return "redirect:/cart";
     }
+
 }

@@ -1,7 +1,6 @@
 package pl.camp.it.book.store.validator;
 
 import pl.camp.it.book.store.exception.BookValidationException;
-import pl.camp.it.book.store.exception.UserValidationException;
 import pl.camp.it.book.store.model.Book;
 
 

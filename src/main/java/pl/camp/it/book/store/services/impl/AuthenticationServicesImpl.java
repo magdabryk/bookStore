@@ -8,7 +8,6 @@ import pl.camp.it.book.store.database.IUserDAO;
 import pl.camp.it.book.store.model.User;
 import pl.camp.it.book.store.services.IAutenthicationService;
 import pl.camp.it.book.store.session.SessionObject;
-
 import java.util.Optional;
 
 @Service
